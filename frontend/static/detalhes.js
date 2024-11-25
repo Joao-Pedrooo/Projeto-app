@@ -127,6 +127,7 @@ async function synchronize() {
 
     const data = { // Organiza os dados no formato esperado pelo backend
         nome: escolaId,
+        
         fotos: photosData
     };
 

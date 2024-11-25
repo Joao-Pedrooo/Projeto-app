@@ -14,6 +14,7 @@ INSERT INTO escolas (nome, endereco, metragem, status) VALUES
 CREATE TABLE IF NOT EXISTS fotos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_escola INT NOT NULL,
+    id_foto
     nome VARCHAR(255) NOT NULL,
     foto LONGBLOB NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
