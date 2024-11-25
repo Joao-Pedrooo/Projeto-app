@@ -13,7 +13,9 @@ INSERT INTO escolas (nome, endereco, metragem, status) VALUES
 
 CREATE TABLE IF NOT EXISTS fotos (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_escola INT NOT NULL,
     nome VARCHAR(255) NOT NULL,
     foto LONGBLOB NOT NULL,
-    data_upload TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_escola) REFERENCES escolas(id) ON DELETE CASCADE
 );

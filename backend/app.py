@@ -3,7 +3,7 @@ import os
 from flask_cors import CORS
 from flask import Flask, jsonify, request, send_file
 import io
-
+import base64
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -44,42 +44,45 @@ def get_escolas():
 # Pasta para salvar as fotos localmente
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+import base64
 
 @app.route('/api/detalhes', methods=['POST'])
 def upload_foto():
     conn = get_db_connection()
     cursor = conn.cursor()
-    
 
     try:
         nome = request.json.get('nome')
-        print(nome)
-        if not nome:
-           return jsonify({'error': "Nao informado"}), 400
-        # Processa os arquivos enviados
-        for key in request.files:
-            file = request.files[key]
-            if file:
-                # Salva o arquivo localmente
-                filename = secure_filename(file.filename)
-                filepath = os.path.join(UPLOAD_FOLDER, filename)
-                file.save(filepath)
+        fotos = request.json.get('fotos')
 
-                # Salva a referência no banco de dados
-                with open(filepath, 'rb') as f:
-                    foto_bin = f.read()
-                query = "INSERT INTO fotos (nome, foto) VALUES (%s, %s)"
-                cursor.execute(query, (nome, foto_bin))
-                print(f"Foto '{filename}' inserida no banco com sucesso.")
-                conn.commit()
+        if not nome or not fotos:
+            return jsonify({'error': "Os campos 'nome' e 'fotos' são obrigatórios."}), 400
 
-        
+        for char, base64_image in fotos.items():
+            # Verifica e remove o prefixo Base64
+            if base64_image.startswith("data:image/"):
+                base64_image = base64_image.split(",")[1]
+
+            # Decodifica o Base64 para binário
+            try:
+                foto_bin = base64.b64decode(base64_image)
+            except Exception as e:
+                print(f"Erro ao decodificar a imagem {char}: {e}")
+                return jsonify({'error': f"Erro ao processar a imagem {char}."}), 400
+
+            # Insere no banco
+            query = "INSERT INTO fotos (nome, foto) VALUES (%s, %s)"
+            cursor.execute(query, (nome, foto_bin))
+            print(f"Foto '{char}' inserida no banco com sucesso.")
+
+        conn.commit()
         return jsonify({'message': 'Fotos salvas com sucesso!'}), 201
 
     except Exception as e:
         print(f"Erro ao salvar fotos: {e}")
         conn.rollback()
         return jsonify({'error': str(e)}), 500
+
     finally:
         cursor.close()
         conn.close()
