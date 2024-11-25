@@ -1,0 +1,27 @@
+
+.menu-bar {
+    background-color: #4CAF50;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 16px;
+}
+
+.menu-bar a:hover {
+    background-color: #45a049;
+    border-radius: 5px;
+}
+body {
+    padding-top: 50px; /* Para evitar que o conteúdo fique atrás do menu */
+}

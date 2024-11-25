@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Escolas</title>
+        <link rel="stylesheet" href="static/menu-styles.css" />
+        <link rel="stylesheet" href="static/styles.css" />
+    </head>
+    <body>
+        <div class="menu-bar">
+            <a href="index.html">Início</a>
+            <a href="escolas.html">Escolas</a>
+            <a href="admin.html" id="admin-link">Administração</a>
+            <a href="coleta.html" id="coleta-link">Coleta</a>
+        </div>
+        <h1>Lista de Escolas</h1>
+        <table class="table-one">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome da Escola</th>
+                    <th>Endereco</th>
+                    <th>Edicao</th>
+                </tr>
+            </thead>
+            <tbody id="escola-list">
+                <!-- Lista de escolas será gerada dinamicamente -->
+            </tbody>
+        </table>
+
+        <script src="static/menu.js"></script>
+        <script src="static/escolas.js"></script>
+    </body>
+</html>

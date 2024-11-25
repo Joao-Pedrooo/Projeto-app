@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Detalhes da Escola</title>
+        <link rel="stylesheet" href="static/styles.css" />
+    </head>
+    <body>
+        <header>
+            <h1 id="escola-title">Detalhes da Escola</h1>
+        </header>
+        <main>
+            <button onclick="window.location.href='index.html'">
+                Voltar ao Início
+            </button>
+            <section>
+                <h2>Fotos do Local</h2>
+                <form id="caminho-photo">
+                    <label for="caminho-photo">Foto do Local:</label>
+                    <input
+                        type="file"
+                        id="caminho-photo"
+                        accept="image/*"
+                    /><br /><br />
+                    <div id="photo-uploads">
+                        <!-- Fotos adicionais serão geradas dinamicamente -->
+                    </div>
+                    <button type="button" onclick="savePhotos()">
+                        Salvar Fotos
+                    </button>
+                </form>
+            </section>
+            <section>
+                <h2>Fotos Salvas</h2>
+                <div id="saved-photos"></div>
+            </section>
+            <button onclick="synchronize()">Sincronizar</button>
+        </main>
+        <script src="static/detalhes.js"></script>
+    </body>
+</html>
