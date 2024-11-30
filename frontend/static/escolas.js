@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/escolas');
+        const response = await fetch('http://162.243.250.179:5000/api/escolas');
         if (!response.ok) throw new Error('Erro na requisição ao backend');
         const escolas = await response.json();
 

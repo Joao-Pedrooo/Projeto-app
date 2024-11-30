@@ -75,6 +75,7 @@ function loadSavedPhotos() {
             preview.style.display = 'block'; // Exibe a imagem salva
         }
     }
+    return photos
 }
 
 function convertToBase64(file) {
@@ -126,14 +127,13 @@ async function synchronize() {
     }
 
     const data = { // Organiza os dados no formato esperado pelo backend
-        nome: escolaId,
-        
+        id_escola: escolaId,
         fotos: photosData
     };
 
     try {
         // Envia os dados para o backend
-        const response = await fetch('http://localhost:5000/api/detalhes', {
+        const response = await fetch('http://162.243.250.179:5000/api/detalhes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
